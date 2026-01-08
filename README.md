@@ -1,5 +1,6 @@
 # Servicios-Docker
-Este proyecto consiste en la implementación y configuración de servicios esenciales de red utilizando contenedores. El objetivo principal fue aprender la administración de redes y la orquestación de servicios en entornos aislados y escalables.
+Este proyecto consiste en la implementación y configuración de servicios esenciales de red utilizando contenedores. 
+El objetivo principal fue aprender la administración de redes y la orquestación de servicios en entornos aislados y escalables.
 
 🚀 Servicios Implementados
 El entorno incluye la configuración de los siguientes protocolos:
