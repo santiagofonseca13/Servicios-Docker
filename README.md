@@ -24,11 +24,11 @@ Networking de Docker: Configuración de redes tipo bridge y static IPs.
 📂 Estructura del Proyecto
 Plaintext
 
-├── dns/         # Configuración de BIND9
-├── ftp/         # Configuración de vsftpd
-├── http/        # Archivos del servidor Apache/Nginx
-├── ssh/         # Configuración de OpenSSH
-└── docker-compose.yml  # Orquestador de todos los servicios
+* dns/         # Configuración de BIND9
+* ftp/         # Configuración de vsftpd
+* http/        # Archivos del servidor Apache/Nginx
+* ssh/         # Configuración de OpenSSH
+* docker-compose.yml  # Orquestador de todos los servicios
 
 🔧 Cómo ejecutarlo
 Clona este repositorio:
