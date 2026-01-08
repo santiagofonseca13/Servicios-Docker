@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a mi Servidor Apache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #ef4444, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="container mx-auto p-8 text-center">
+        <div class="bg-white rounded-lg shadow-2xl p-12 max-w-2xl mx-auto -mt-24">
+            <div class="mb-8">
+                <!-- Ícono de Apache Feather -->
+                <svg class="w-24 h-24 mx-auto text-red-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l-7-7 7-7 7 7-3.5 3.5L12 19zM12 19l7-7-3.5-3.5-7 7L12 19z"></path><path d="M12 5l7 7-7 7-7-7 7-7z"></path><path d="M12 12l-3.5 3.5L12 19l3.5-3.5L12 12z"></path></svg>
+            </div>
+            <h1 class="text-4xl font-bold mb-4 gradient-text">¡Servidor Apache en Línea!</h1>
+            <p class="text-gray-600 text-lg mb-6">
+                Este sitio web está siendo servido desde un contenedor Docker que ha obtenido su IP de la red <strong class="font-semibold text-gray-800">red_servicios</strong>.
+            </p>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-700 mb-3">Detalles de la Red</h2>
+                <p id="ip-address" class="text-lg text-blue-600 font-mono">Obteniendo IP...</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Este script no es necesario para que funcione, pero muestra la IP del contenedor
+        // Es solo un adorno para la página de demostración
+        fetch('/.well-known/my-ip')
+            .then(response => response.text())
+            .then(ip => {
+                document.getElementById('ip-address').innerText = `IP: ${ip}`;
+            }).catch(() => {
+                document.getElementById('ip-address').innerText = 'IP no disponible';
+            });
+    </script>
+</body>
+</html>
+

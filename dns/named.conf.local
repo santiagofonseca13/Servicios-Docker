@@ -1,0 +1,4 @@
+zone "santiagofonseca.osfg" {
+    type master;
+    file "/etc/bind/zones/db.santiagofonseca.osfg";
+};

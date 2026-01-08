@@ -1,0 +1,122 @@
+# Definición de todos los servicios (contenedores)
+services:
+  # --- SERVIDORES ---
+
+  # Servidor DNS (BIND9) con IP estática
+  dns-server:
+    build: ./dns
+    container_name: dns-server
+    networks:
+      red_servicios:
+        ipv4_address: 192.168.30.10
+    volumes:
+      - ./dns:/etc/bind
+      - ./dns/run:/run/named
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    restart: unless-stopped
+
+  # Servidor DHCP (ISC) con IP estática
+  dhcp-server:
+    build: ./dhcp-server
+    container_name: dhcp-server
+    networks:
+      red_servicios:
+        ipv4_address: 192.168.30.5
+    cap_add: [ "NET_ADMIN" ]
+    depends_on: [ "dns-server" ]
+    restart: unless-stopped
+
+  # --- CLIENTES Y SERVICIOS ---
+
+  # Cliente con servicios SSH
+  ssh:
+    build: ./ssh
+    container_name: ssh
+    networks:
+      red_servicios:
+        ipv4_address: 192.168.30.6
+    ports:
+      - "2223:22"
+    cap_add: [ "NET_ADMIN" ]
+    depends_on: [ "dhcp-server" ]
+    restart: always
+
+  # Servidor Web
+  apache-web:
+    build: ./apache
+    container_name: apache-web
+    networks:
+      red_servicios:
+        ipv4_address: 192.168.30.4
+    ports:
+      - "8082:80"
+    volumes:
+      - ./apache/sitio-web:/usr/local/apache2/htdocs/
+    cap_add: [ "NET_ADMIN" ]
+    depends_on: [ "dhcp-server" ]
+    restart: always
+
+  # Servidor FTP
+  ftp:
+    image: fauria/vsftpd
+    container_name: ftp
+    environment:
+      FTP_USER: "santiago"
+      FTP_PASS: "ubuntu"
+      PASV_MIN_PORT: 21000
+      PASV_MAX_PORT: 21010
+      PASV_ADDRESS: 192.168.56.100
+    ports:
+      - "2020:20"
+      - "2121:21"
+      - "21000-21010:21000-21010"
+    volumes:
+      - ./ftp/data:/home/vsftpd/
+    networks:
+      red_servicios:
+        ipv4_address: 192.168.30.7
+    restart: always
+    tty: true
+
+  # --- CLIENTES LIGEROS DE PRUEBA (pc1 y pc2) ---
+
+  # Cliente ligero que obtiene IP del DHCP
+  pc1:
+    build: 
+      context: ./dhcp-client
+      dockerfile: Dockerfile
+    container_name: pc1
+    networks: [ "red_servicios" ]
+    cap_add:
+      - "NET_ADMIN"
+      - "NET_RAW"
+    ports:
+      - "2224:22"
+    depends_on: [ "dhcp-server" ]
+    restart: always
+
+  # Cliente ligero que obtiene IP del DHCP
+  pc2:
+    build: 
+      context: ./dhcp-client
+      dockerfile: Dockerfile
+    container_name: pc2
+    networks: [ "red_servicios" ]
+    cap_add:
+      - "NET_ADMIN"
+      - "NET_RAW"
+    ports:
+      - "2225:22"
+    depends_on: [ "dhcp-server" ]
+    tty: true
+    stdin_open: true
+    restart: always
+
+# --- CONFIGURACIÓN DE LA RED ---
+networks:
+  red_servicios:
+    external: true

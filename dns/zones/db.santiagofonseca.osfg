@@ -1,0 +1,21 @@
+$TTL    604800
+@       IN      SOA     ns1.santiagofonseca.osfg. root.santiagofonseca.osfg. (
+                          2         ; Serial
+                          604800    ; Refresh
+                          86400     ; Retry
+                          2419200   ; Expire
+                          604800 )  ; Negative Cache TTL
+;
+; Name Servers
+@           IN      NS      ns1.santiagofonseca.osfg.
+
+; A Records for name servers
+ns1         IN      A       192.168.30.10
+
+; A Records for other hosts in the zone
+@           IN      A       192.168.30.10
+www         IN      A       192.168.30.4
+dhcp-server IN      A       192.168.30.5
+ftp         IN      A       192.168.30.7
+@           IN      A       192.168.56.100
+@           IN      A       192.168.100.214
