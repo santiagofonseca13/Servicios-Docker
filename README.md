@@ -29,19 +29,13 @@ Plaintext
 ├── http/        # Archivos del servidor Apache/Nginx
 ├── ssh/         # Configuración de OpenSSH
 └── docker-compose.yml  # Orquestador de todos los servicios
+
 🔧 Cómo ejecutarlo
 Clona este repositorio:
-
-Bash
-
 git clone https://github.com/santiagofonseca13/Docker-Services.git
+
 Asegúrate de tener instalado Docker y Docker Compose.
 
-Inicia todos los servicios con un solo comando:
-
-Bash
-
-docker-compose up -d
 🧠 Aprendizajes Clave
 Aislamiento de servicios: Entender cómo separar capas de infraestructura.
 
