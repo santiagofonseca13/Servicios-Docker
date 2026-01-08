@@ -31,7 +31,6 @@ Plaintext
 * ssh/         # Configuración de OpenSSH
 * docker-compose.yml  # Orquestador de todos los servicios
 
-Asegúrate de tener instalado Docker y Docker Compose.
 
 🧠 Aprendizajes Clave
 Aislamiento de servicios: Entender cómo separar capas de infraestructura.
